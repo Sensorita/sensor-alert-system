@@ -1,0 +1,7 @@
+{
+    "emails": [
+        "severin@sensorita.com"
+    ],
+    "alert_time_hours": 1.5,
+    "check_interval_minutes": 10
+}
