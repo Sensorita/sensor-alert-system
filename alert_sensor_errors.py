@@ -94,9 +94,13 @@ def sort_sensors(too_late, prev_too_late, on_time):
 
 
 def construct_email(new_errors, old_errors, fixed_errors, on_time, config):
-
+    if len(new_errors) == 0 and len(fixed_errors):
+        subject = f"Sensorita - Fixed sensor errors: {len(fixed_errors)}"
+    else:
+        subject = f"Sensorita - New sensor errors: {len(new_errors)}"
+    
     message = MIMEMultipart("alternative")
-    message["Subject"] = "Sensorita: New errors"
+    message["Subject"] = subject
     message["From"] = sender_email
     receiver_email = "severin@sensorita.com"
     message["To"] = receiver_email
@@ -108,9 +112,9 @@ def construct_email(new_errors, old_errors, fixed_errors, on_time, config):
     <html>
     <head></head>
     <body>
-        <h2>Status:</h2>
+        <h2>Sensor status</h2>
+        <p>Sends alert if a sensor has not sent a radar sample in {config["alert_time_hours"]} hours or if it starts sending again.</p>
         <p>Sensor number:  "last_measurement_time"</p>
-        <p>Sends alert if a sensor has not sent a radar sample in {config["alert_time_hours"]} hours.</p>
         <h3>New Errors:</h3>
         <ul>
         {new_errors_html}
@@ -127,6 +131,8 @@ def construct_email(new_errors, old_errors, fixed_errors, on_time, config):
         <ul>
         {working_sensors_html}
         </ul>
+
+        <p>This is an automated message from Sensorita.</p>
 
     </body>
     </html>
