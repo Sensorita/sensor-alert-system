@@ -1,5 +1,9 @@
 # sensor-alert-system
-Automatic alers when sensors do not send data
+Automatic alerts when sensors do not send data
+
+### TODO:
+1. Retrieve shadows to actually check when the sensor should send.
+2. Check if they send metadata, gps and logs.
 
 The system runs on an ec2 instance (same one as the dashboard) in the AWS Account: 9832 1132 3883
 
